@@ -18,4 +18,4 @@ thumbnail as image).
 Credits
 =======
 
-Slideshow powered by Dev7Studios' <a href="http://nivo.dev7studios.com/">Nivo Slider</a>
+Slideshow to be powered by Dev7Studios' <a href="http://nivo.dev7studios.com/">Nivo Slider</a>
