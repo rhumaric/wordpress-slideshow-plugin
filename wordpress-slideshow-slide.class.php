@@ -45,10 +45,40 @@ class WordpressSlideshow_Slide{
 
     if(!$result){
 
-      throw new Exception(__('An error occured during slide creation'));
+      throw new Exception(__('An error occured during slide creation','wordpress-slideshow'));
     }
 
     $this->id = $wpdb->insert_id;
+  }
+
+  public static function findBySlideshow($slideshow){
+
+    if(empty($slideshow)){return;}
+
+    global $wpdb;
+    $query = $wpdb->prepare('SELECT * FROM '.WORDPRESS_SLIDESHOW_SLIDE_TABLE.' WHERE slideshow_id=%s;',$slideshow->id);
+    $results = $wpdb->get_results($query);
+
+    if(!$results){
+
+      throw new Exception(__('An error occured looking up for the slides','wordpress-slideshow'));
+    }
+
+    $slides = array();
+    foreach($results as $result){
+
+      $slide = new WordpressSlideshow_Slide();
+      $slide->id = $result->id;
+      $slide->name = $result->slide_name;
+      $slide->url = $result->slide_url;
+      $slide->image_url = $result->slide_image_url;
+      $slide->text = $result->slide_text;
+      $slide->slideshow = $slideshow;
+
+      array_push($slides,$slide);
+    }
+
+    return $slides;
   }
 
   public function __get($name){

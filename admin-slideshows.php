@@ -17,6 +17,13 @@ wp_enqueue_script( 'common' );
 wp_enqueue_script( 'wp-lists' );
 wp_enqueue_script( 'postbox' );
 
+// Define action to post to, depending on the active slideshow id
+$action = wordpress_slideshow_page_url().'&noheader=true';
+if(!empty($active_slideshow)){
+
+  $action .= '&slideshow='.$active_slideshow->id;
+}
+
 ?>
 <div class="wrap nav-menus-php" >
   <div id="icon-themes" class="icon32"><br></div>
@@ -80,11 +87,11 @@ wp_enqueue_script( 'postbox' );
     </div>
   </div>
   <section class="menu-edit">
-  <form method="post" action="<?php echo wordpress_slideshow_page_url(); ?>&noheader=true" >
       <header id="nav-menu-header" class="major-publishing-action">
         <?php 
           $slideshow_name = !empty($active_slideshow)?$active_slideshow->slideshow_name:(!empty($_POST['slideshow_name'])?$_POST['slideshow_name']:'');
 ?>
+      <form method="post" action="<?php echo wordpress_slideshow_page_url(); ?>&noheader=true" >
         <div class="major-publishing-actions">
         <label for="slideshow-name" class="howto open-label">
           <span><?php _e('Slideshow name','wordpress-slideshow'); ?>:</span>
@@ -101,25 +108,22 @@ wp_enqueue_script( 'postbox' );
             <input type="submit" name="delete_slideshow" class="submitdelete" value="<?php _e('Delete slideshow','wordpress-slideshow'); ?>">
           </div>
         <?php endif; ?>
-        </div>
+        </div><!-- /.major-publishing-actions -->
+      </form>
       </header>
-      <?php if(empty($active_slideshow)): ?>
         <div id="post-body">
           <div id="post-body-content">
+            <?php if(empty($active_slideshow)):?>
             <div class="post-body-plain">
               <?php printf(__('To create a new slideshow, give it a name in the above form and click "%s"','wordpress-slideshow'),__('Create slideshow','wordpress-slideshow')); ?>
             </div>
+            <?php else: ?>
+              <?php include(WORDPRESS_SLIDESHOW_DIR.'list-slides.php'); ?>
+            <?php endif;?>
           </div>
         </div>
-      <?php  endif; ?>
-    </form>
   </section><!-- /.slideshow-edit -->
   </div><!-- /#menu-management-liquid -->
   </div><!-- /#menu-management -->
   </div><!-- /#nav-menu-frame -->
 </div><!-- /.wrap -->
-<?php
-
-
-  require_once(ABSPATH .'wp-admin/admin-footer.php');
-?>

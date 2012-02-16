@@ -4,6 +4,18 @@ class WordpressSlideshow{
   public $id;
   public $slideshow_name;
 
+  protected $_slides;
+
+  protected function get_slides(){
+
+    if(empty($_slides)){
+
+      $_slides = WordpressSlideshow_Slide::findBySlideshow($this);
+    }
+
+    return $_slides;
+  }
+
   function __construct($slideshow_name,$id=null){
 
     $this->id = $id;
@@ -121,7 +133,14 @@ class WordpressSlideshow{
 
       throw new Exception($message);
     }
+  }
 
+  public function __get($name){
+
+    if($name == 'slides'){
+
+      return $this->get_slides();
+    }
   }
 }
 ?>
