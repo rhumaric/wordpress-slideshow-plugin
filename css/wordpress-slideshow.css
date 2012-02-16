@@ -27,7 +27,7 @@ input.submitdelete:hover{
 .postbox .howto span{
 
   float: none;
-  display: inline-block;
+  display: block;
 }
 
 .postbox textarea{

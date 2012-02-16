@@ -117,6 +117,28 @@ function wordpress_slideshow_handle_post(){
       return;
     }
 
+    // Delete slide
+    if(isset($_POST['delete-slide'])){
+
+      echo 'Deleting slides';
+      $slide = WordpressSlideshow_Slide::find($_POST['slide']);
+
+      var_dump($slide);
+
+      if(!empty($slide)){
+
+        $slideshow = $slide->slideshow;
+        var_dump($slide);
+        $slide->delete();
+        $notice = __('Slide was successfully removed from slideshow','wordpress-slideshow');
+        #wp_redirect(wordpress_slideshow_page_url($slideshow->id).'&notice='.urlencode($notice));
+      }
+
+      return;
+    }
+
+
+
     // Delete new slideshow
     if(isset($_POST['delete_slideshow'])){
 

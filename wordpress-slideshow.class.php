@@ -81,12 +81,16 @@ class WordpressSlideshow{
   public function delete(){
 
     global $wpdb;
-    $query = $wpdb->prepare('DELETE FROM '.WORDPRESS_SLIDESHOW_TABLE.' WHERE ID=%s',$this->id);
-    $result = $wpdb->query($query);
+    if(!empty($this->id)){
+      $query = $wpdb->prepare('DELETE FROM '.WORDPRESS_SLIDESHOW_TABLE.' WHERE ID=%s',$this->id);
+      $result = $wpdb->query($query);
 
-    if(!$result){
+      if(!$result){
 
-      throw new Exception(__('An error occured during the slideshow deletion','wordpress-slideshow'));
+        throw new Exception(__('An error occured during the slideshow deletion','wordpress-slideshow'));
+      }
+
+      $this->id = null;
     }
   }
 

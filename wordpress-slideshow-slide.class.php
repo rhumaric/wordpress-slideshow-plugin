@@ -51,6 +51,49 @@ class WordpressSlideshow_Slide{
     $this->id = $wpdb->insert_id;
   }
 
+  public function delete(){
+
+    global $wpdb;
+
+    echo 'Deleting slide';
+    if(!empty($this->id)){
+
+      $query = $wpdb->prepare('DELETE FROM '.WORDPRESS_SLIDESHOW_SLIDE_TABLE.' WHERE id=%s',$this->id);
+      $result = $wpdb->query($query);
+      
+      if(!$result){
+
+        throw new Exception(__('An error occured when removing the slide','wordpress-slideshow'));
+      }
+
+      $this->id = null;
+    }
+  }
+
+  public static function find($id){
+
+    if(empty($id)){return;}
+
+    global $wpdb;
+    $query = $wpdb->prepare('SELECT * FROM '.WORDPRESS_SLIDESHOW_SLIDE_TABLE.' WHERE id=%s;',$id);
+    $results = $wpdb->get_results($query);
+
+    if(!$results){
+
+      throw new Exception(__('An error occured looking up for the slides','wordpress-slideshow'));
+    }
+
+    if(empty($results)){
+
+      return null;
+    }
+
+    $slide = WordpressSlideshow_Slide::fromQueryResult($results[0]);
+    $slide->slideshow = WordpressSlideshow::find($slide->slideshow_id);
+
+    return $slide;
+  }
+
   public static function findBySlideshow($slideshow){
 
     if(empty($slideshow)){return;}
@@ -67,18 +110,26 @@ class WordpressSlideshow_Slide{
     $slides = array();
     foreach($results as $result){
 
+      $slide = WordpressSlideshow_Slide::fromQueryResult($result);
+      $slide->slideshow = $slideshow;
+      array_push($slides,$slide);
+    }
+
+    return $slides;
+  }
+
+
+  protected static function fromQueryResult($result){
+
       $slide = new WordpressSlideshow_Slide();
       $slide->id = $result->id;
       $slide->name = $result->slide_name;
       $slide->url = $result->slide_url;
       $slide->image_url = $result->slide_image_url;
       $slide->text = $result->slide_text;
-      $slide->slideshow = $slideshow;
+      $slide->slideshow_id = $result->slideshow_id;
 
-      array_push($slides,$slide);
-    }
-
-    return $slides;
+      return $slide;
   }
 
   public function __get($name){
