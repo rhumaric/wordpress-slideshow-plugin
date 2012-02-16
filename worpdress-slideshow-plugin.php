@@ -13,10 +13,16 @@ if(!defined(WORDPRESS_SLIDESHOW_DIR)){
 }
 
 require_once(WORDPRESS_SLIDESHOW_DIR.'wordpress-slideshow.class.php');
+require_once(WORDPRESS_SLIDESHOW_DIR.'wordpress-slideshow-slide.class.php');
 
 global $wpdb;
 if(!defined(WORDPRESS_SLIDESHOW_TABLE)){
   define(WORDPRESS_SLIDESHOW_TABLE,$wpdb->prefix.'slideshows');
+}
+
+if(!defined(WORDPRESS_SLIDESHOW_SLIDE_TABLE)){
+
+  define(WORDPRESS_SLIDESHOW_SLIDE_TABLE,$wpdb->prefix.'slideshow_slides');
 }
 
 
@@ -78,6 +84,38 @@ function wordpress_slideshow_handle_post(){
       }
     }
 
+    // Add custom slide to slideshow
+    if(isset($_POST['add_custom_slide'])){
+
+      echo 'Creating custom slide';
+
+      $slideshow = WordpressSlideshow::find($_POST['slideshow']);
+
+      var_dump($_POST['slideshow']);
+      var_dump($slideshow);
+      if(!empty($slideshow)){
+
+        $slide = new WordpressSlideshow_Slide();
+        $slide->name = $_POST['custom-slide-name'];
+        $slide->url = $_POST['custom-slide-url'];
+        $slide->image_url = $_POST['custom-slide-image-url'];
+        $slide->text = $_POST['custom-slide-text'];
+        $slide->slideshow = $slideshow;
+
+        try{
+          $slide->save();
+          $notice = __('The new slide was successfully created','wordpress-slideshow');
+          wp_redirect(wordpress_slideshow_page_url($slideshow->id).'&notice='.urlencode($notice));
+          return;
+        }
+        catch(Exception $e){
+
+          $error = $e->getMessage();
+        }
+      }
+
+      return;
+    }
 
     // Delete new slideshow
     if(isset($_POST['delete_slideshow'])){
@@ -118,6 +156,6 @@ function wordpress_slideshow_page(){
     $notice = $_GET['notice'];
   }
 
-  include_once(WORDPRESS_SLIDESHOW_DIR.'admin-slideshows.php');
+  include(WORDPRESS_SLIDESHOW_DIR.'admin-slideshows.php');
 }
 ?>

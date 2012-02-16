@@ -1,0 +1,18 @@
+.postbox label{
+
+  clear: both;
+  overflow: hidden;
+  margin: 8px auto;
+}
+
+.postbox .howto span{
+
+  float: none;
+  display: inline-block;
+}
+
+.postbox textarea{
+
+  width: 100%;
+  display: block;
+}
