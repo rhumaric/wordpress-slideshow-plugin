@@ -64,3 +64,13 @@ input.submitdelete:hover{
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+.slideshow-definitions select{
+
+  width: 100%;
+}
+
+.button-controls{
+
+  text-align: right;
+}

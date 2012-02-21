@@ -32,11 +32,11 @@ class WordpressSlideshow{
   public static function find($slideshow_id){
 
     global $wpdb;
-
+    
     $query = $wpdb->prepare('SELECT * FROM '.WORDPRESS_SLIDESHOW_TABLE.' WHERE ID=%s',$slideshow_id);
     $results = $wpdb->get_results($query);
 
-    if(!empty($results)){
+    if(is_array($results)){
 
       $result = $results[0];
       return new WordpressSlideshow($result->slideshow_name,$result->ID);

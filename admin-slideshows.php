@@ -38,13 +38,22 @@ if(!empty($active_slideshow)){
   <div id="nav-menus-frame">
     <div id="menu-settings-column" class="metabox-holder <?php if(empty($active_slideshow)){ echo 'metabox-holder-disabled'; }?>">
     <div id="side-sortables" class="metabox-sortables ui-sortables">
+      <div class="postbox">
+        <div class="handlediv">
+          <br/>
+        </div>
+        <h3 class="hndle"><span><?php _e('Slideshow Locations','wordpress-slideshow'); ?></span></h3>
+        <div class="inside">
+          <?php include (WORDPRESS_SLIDESHOW_DIR.'slideshow-location-form.php'); ?>
+        </div>
+      </div>
       <div class="postbox ">
         <div class="handlediv" title="<?php _e('Click to toggle');?>">
           <br>
        </div>
        <h3 class="hndle"><span><?php _e('Custom slide','wordpress-slideshow'); ?></span></h3>
        <div class="inside">
-       <?php include (WORDPRESS_SLIDESHOW_DIR.'form-custom-slide.php'); ?>
+       <?php include (WORDPRESS_SLIDESHOW_DIR.'custom-slide-form.php'); ?>
 	</div>
 </div>
     

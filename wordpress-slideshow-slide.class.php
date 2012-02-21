@@ -78,7 +78,7 @@ class WordpressSlideshow_Slide{
     $query = $wpdb->prepare('SELECT * FROM '.WORDPRESS_SLIDESHOW_SLIDE_TABLE.' WHERE id=%s;',$id);
     $results = $wpdb->get_results($query);
 
-    if(!$results){
+    if(!is_array($results)){
 
       throw new Exception(__('An error occured looking up for the slides','wordpress-slideshow'));
     }
@@ -102,7 +102,7 @@ class WordpressSlideshow_Slide{
     $query = $wpdb->prepare('SELECT * FROM '.WORDPRESS_SLIDESHOW_SLIDE_TABLE.' WHERE slideshow_id=%s;',$slideshow->id);
     $results = $wpdb->get_results($query);
 
-    if(!$results){
+    if(!is_array($results)){
 
       throw new Exception(__('An error occured looking up for the slides','wordpress-slideshow'));
     }
