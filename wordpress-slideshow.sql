@@ -18,3 +18,5 @@ CREATE TABLE IF NOT EXISTS `wp_slideshow_slides` (
   CONSTRAINT `slideshow_id` FOREIGN KEY (`slideshow_id`) REFERENCES `wp_slideshows` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+-- Use this statement if plugin was already installed
+-- ALTER TABLE `wp_slideshow_slides` ADD COLUMN `slide_no` int DEFAULT 0;

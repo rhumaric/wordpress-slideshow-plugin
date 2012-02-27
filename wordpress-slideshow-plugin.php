@@ -2,7 +2,7 @@
 /*
  Plugin Name: Wordpress Slideshow plugin
  Plugin URI: https://github.com/rhumaric/wordpress-slideshow-plugin
- Version: 0.1
+ Version: 0.2
  Description: Plugin to display and manage slideshows
  Author: Romaric Pascal
  Author URI: http://rhumaric.com/
