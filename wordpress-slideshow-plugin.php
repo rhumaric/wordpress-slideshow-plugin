@@ -219,6 +219,7 @@ function wordpress_slideshow_handle_post(){
   }
 }
 
+
 function wordpress_slideshow_page_url($slideshow_id = null){
 
   $page_url = site_url().'/wp-admin/themes.php?page='.$_GET['page'];
@@ -230,6 +231,23 @@ function wordpress_slideshow_page_url($slideshow_id = null){
   return $page_url;
 }
 
+/**
+ * Adds necessary JS for wordpress slideshow admin page
+ */
+add_action('admin_init','wordpress_slideshow_admin_js');
+function wordpress_slideshow_admin_js(){
+
+  // jQuery
+  wp_enqueue_script( 'jquery-ui-draggable' );
+  wp_enqueue_script( 'jquery-ui-droppable' );
+  wp_enqueue_script( 'jquery-ui-sortable' );
+
+  wp_enqueue_script('nivo-slider',plugins_url('js/wordpress-slideshow-admin.js',__FILE__));
+}
+
+/**
+ * Displays Wordpress Slideshow admin page
+ */
 function wordpress_slideshow_page(){
 
   global $error;

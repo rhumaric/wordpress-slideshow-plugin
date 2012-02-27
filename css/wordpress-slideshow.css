@@ -82,4 +82,7 @@ input.submitdelete:hover{
   text-align: right;
 }
 
+.js .collapsed{
 
+  display: none;
+}

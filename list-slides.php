@@ -8,7 +8,7 @@ $slides = $active_slideshow->slides;
         <header class="menu-item-handle">
           <h1 class="item-title"><?php echo $slide->name; ?></h1>
         </header>
-        <div class="menu-item-settings">
+        <div class="menu-item-settings collapsed">
           <form method="post" action="<?php echo $action; ?>">
             <?php include(WORDPRESS_SLIDESHOW_DIR.'custom-slides-fields.php'); ?>
             <input class="button-secondary" type="submit" value="<?php _e('Update slide','wordpress-slideshow'); ?>" name="update-slide">

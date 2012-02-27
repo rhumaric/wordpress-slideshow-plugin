@@ -7,15 +7,6 @@
 
   $selected_slideshow_id = isset($_GET['slideshow'])?$_GET['slideshow']:0;
 
-// jQuery
-wp_enqueue_script( 'jquery-ui-draggable' );
-wp_enqueue_script( 'jquery-ui-droppable' );
-wp_enqueue_script( 'jquery-ui-sortable' );
-
-// Metaboxes
-wp_enqueue_script( 'common' );
-wp_enqueue_script( 'wp-lists' );
-wp_enqueue_script( 'postbox' );
 
 // Define action to post to, depending on the active slideshow id
 $action = wordpress_slideshow_page_url().'&noheader=true';
@@ -39,9 +30,6 @@ if(!empty($active_slideshow)){
     <div id="menu-settings-column" class="metabox-holder <?php if(empty($active_slideshow)){ echo 'metabox-holder-disabled'; }?>">
     <div id="side-sortables" class="metabox-sortables ui-sortables">
       <div class="postbox">
-        <div class="handlediv">
-          <br/>
-        </div>
         <h3 class="hndle"><span><?php _e('Slideshow Locations','wordpress-slideshow'); ?></span></h3>
         <div class="inside">
           <?php include (WORDPRESS_SLIDESHOW_DIR.'slideshow-location-form.php'); ?>
