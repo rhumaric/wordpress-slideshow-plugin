@@ -150,7 +150,17 @@ class WordpressSlideshow_Slide{
       $slide->slideshow_id = $result->slideshow_id;
 
       return $slide;
-    
+  }
+
+  public static function updateOrder($slide_positions){
+
+    global $wpdb;
+    foreach($slide_positions as $slide_position){
+
+      var_dump($slide_position);
+      $query = $wpdb->prepare('UPDATE '.WORDPRESS_SLIDESHOW_SLIDE_TABLE.' SET slide_no=%d WHERE id=%d',$slide_position['slide_no'],$slide_position['slide_id']);
+      $wpdb->query($query);
+    }
   }
 
   public function __get($name){

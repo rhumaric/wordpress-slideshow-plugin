@@ -245,6 +245,13 @@ function wordpress_slideshow_admin_js(){
   wp_enqueue_script('nivo-slider',plugins_url('js/wordpress-slideshow-admin.js',__FILE__));
 }
 
+add_action('wp_ajax_wordpress-slideshow-update-order','wordpress_slideshow_ajax_update_order');
+function wordpress_slideshow_ajax_update_order(){
+
+  $updated_order = $_POST['updated_order'];
+  WordpressSlideshow_Slide::updateOrder($updated_order);
+}
+
 /**
  * Displays Wordpress Slideshow admin page
  */

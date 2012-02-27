@@ -37,5 +37,5 @@
 
 <label class="howto" for="custom-slide-no">
   <span><?php _e('Slide N°','wordpress-slideshow'); ?></span>
-  <input name="custom-slide-no" type="number" value="<?php echo $slide_no ?>">
+  <input name="custom-slide-no" class="slide-no" type="number" value="<?php echo $slide_no ?>">
 </label>
