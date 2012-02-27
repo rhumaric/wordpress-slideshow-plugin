@@ -30,9 +30,13 @@ class WordpressSlideshow_Slide{
 
   public function save(){
 
-    if($id == null){
+    if($this->id == null){
 
       $this->insert();
+    }
+    else{
+
+      $this->update();
     }
   }
 
@@ -49,6 +53,20 @@ class WordpressSlideshow_Slide{
     }
 
     $this->id = $wpdb->insert_id;
+  }
+
+  private function update(){
+
+    global $wpdb;
+    $query = $wpdb->prepare('UPDATE '.WORDPRESS_SLIDESHOW_SLIDE_TABLE ." SET slide_name = %s, slide_text = %s, slide_url = %s, slide_image_url = %s WHERE id=%d", 
+      $this->name, $this->text,$this->url,$this->image_url,$this->id);
+    $result = $wpdb->query($query);
+    
+    if(!$result){
+
+      echo $wpdb->last_error;
+      throw new Exception(__('An error occured during slide update','wordpress-slideshow'));
+    }
   }
 
   public function delete(){

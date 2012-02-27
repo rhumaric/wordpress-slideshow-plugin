@@ -122,20 +122,43 @@ function wordpress_slideshow_handle_post(){
       return;
     }
 
+    if(isset($_POST['update-slide'])){
+
+      $slide = WordpressSlideshow_Slide::find($_POST['slide']);
+
+      if(!empty($slide)){
+
+        $slideshow = $slide->slideshow;
+        $slide->name = $_POST['custom-slide-name'];
+        $slide->url = $_POST['custom-slide-url'];
+        $slide->image_url = $_POST['custom-slide-image-url'];
+        $slide->text = $_POST['custom-slide-text'];
+
+        try{
+          $slide->save();
+        }
+        catch(Exception $e){
+
+          $error = $e->getMessage();
+        }
+
+        $notice = __('Slide was successfully updated','wordpress-slideshow');
+        #wp_redirect(wordpress_slideshow_page_url($slideshow->id).'&notice='.urlencode($notice));
+      }
+    }
+
     // Delete slide
     if(isset($_POST['delete-slide'])){
 
       $slide = WordpressSlideshow_Slide::find($_POST['slide']);
 
-      var_dump($slide);
-
       if(!empty($slide)){
 
         $slideshow = $slide->slideshow;
-        var_dump($slide);
+        
         $slide->delete();
         $notice = __('Slide was successfully removed from slideshow','wordpress-slideshow');
-        #wp_redirect(wordpress_slideshow_page_url($slideshow->id).'&notice='.urlencode($notice));
+        wp_redirect(wordpress_slideshow_page_url($_GET['slideshow']).'&notice='.urlencode($notice));
       }
 
       return;

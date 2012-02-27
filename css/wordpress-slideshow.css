@@ -65,6 +65,13 @@ input.submitdelete:hover{
   box-sizing: border-box;
 }
 
+.slide .button-secondary{
+
+  float: right;
+  margin: 4px 10px;
+
+}
+
 .slideshow-definitions select{
 
   width: 100%;
@@ -74,3 +81,5 @@ input.submitdelete:hover{
 
   text-align: right;
 }
+
+
