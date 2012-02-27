@@ -6,6 +6,7 @@ class WordpressSlideshow_Slide{
   public $url; /* The url the slide links to */
   public $image_url; /* The image to display */
   public $text; /* The text to display */
+  public $no; /* The N° of the slide */
 
   public $slideshow_id;
   protected $_slideshow;
@@ -58,14 +59,14 @@ class WordpressSlideshow_Slide{
   private function update(){
 
     global $wpdb;
-    $query = $wpdb->prepare('UPDATE '.WORDPRESS_SLIDESHOW_SLIDE_TABLE ." SET slide_name = %s, slide_text = %s, slide_url = %s, slide_image_url = %s WHERE id=%d", 
-      $this->name, $this->text,$this->url,$this->image_url,$this->id);
+    $query = $wpdb->prepare('UPDATE '.WORDPRESS_SLIDESHOW_SLIDE_TABLE ." SET slide_name = %s, slide_text = %s, slide_url = %s, slide_image_url = %s, slide_no = %d WHERE id=%d", 
+      $this->name, $this->text,$this->url,$this->image_url,$this->no, $this->id);
     $result = $wpdb->query($query);
     
     if(!$result){
 
       echo $wpdb->last_error;
-      throw new Exception(__('An error occured during slide update','wordpress-slideshow'));
+      throw new Exception(__('An error occured during slide update','wordpress-slideshow').$wpdb->last_error);
     }
   }
 
@@ -117,7 +118,7 @@ class WordpressSlideshow_Slide{
     if(empty($slideshow)){return;}
 
     global $wpdb;
-    $query = $wpdb->prepare('SELECT * FROM '.WORDPRESS_SLIDESHOW_SLIDE_TABLE.' WHERE slideshow_id=%s;',$slideshow->id);
+    $query = $wpdb->prepare('SELECT * FROM '.WORDPRESS_SLIDESHOW_SLIDE_TABLE.' WHERE slideshow_id=%s ORDER BY slide_no ASC;',$slideshow->id);
     $results = $wpdb->get_results($query);
 
     if(!is_array($results)){
@@ -145,9 +146,11 @@ class WordpressSlideshow_Slide{
       $slide->url = $result->slide_url;
       $slide->image_url = $result->slide_image_url;
       $slide->text = $result->slide_text;
+      $slide->no = $result->slide_no;
       $slide->slideshow_id = $result->slideshow_id;
 
       return $slide;
+    
   }
 
   public function __get($name){

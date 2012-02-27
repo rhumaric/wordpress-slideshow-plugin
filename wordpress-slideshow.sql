@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `wp_slideshow_slides` (
   `slide_image_url` varchar(255) DEFAULT NULL,
   `slide_text` text,
   `slideshow_id` int(11) DEFAULT NULL,
+  `slide_no`int DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `slideshow_id` (`slideshow_id`),
   CONSTRAINT `slideshow_id` FOREIGN KEY (`slideshow_id`) REFERENCES `wp_slideshows` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE

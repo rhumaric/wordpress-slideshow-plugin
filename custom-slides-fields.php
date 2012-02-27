@@ -12,6 +12,7 @@
     $name = $slide->name;
     $image_url = $slide->image_url;
     $text = $slide->text;
+    $slide_no = $slide->no;
   }
 ?>
 <label class="howto" for="custom-slide-url">
@@ -32,4 +33,9 @@
 <label class="howto" for="custom-slide-text">
   <span> <?php _e('Slide text','wordpress-slideshow'); ?></span>
   <textarea name="custom-slide-text" rows="4"><?php echo $text; ?></textarea>
+</label>
+
+<label class="howto" for="custom-slide-no">
+  <span><?php _e('Slide N°','wordpress-slideshow'); ?></span>
+  <input name="custom-slide-no" type="number" value="<?php echo $slide_no ?>">
 </label>

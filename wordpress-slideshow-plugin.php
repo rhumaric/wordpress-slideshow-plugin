@@ -133,6 +133,9 @@ function wordpress_slideshow_handle_post(){
         $slide->url = $_POST['custom-slide-url'];
         $slide->image_url = $_POST['custom-slide-image-url'];
         $slide->text = $_POST['custom-slide-text'];
+        if(isset($_POST['custom-slide-no'])){
+          $slide->no = $_POST['custom-slide-no'];
+        }
 
         try{
           $slide->save();
