@@ -142,10 +142,10 @@ class WordpressSlideshow_Slide{
 
       $slide = new WordpressSlideshow_Slide();
       $slide->id = $result->id;
-      $slide->name = $result->slide_name;
-      $slide->url = $result->slide_url;
-      $slide->image_url = $result->slide_image_url;
-      $slide->text = $result->slide_text;
+      $slide->name = stripslashes($result->slide_name);
+      $slide->url = stripslashes($result->slide_url);
+      $slide->image_url = stripslashes($result->slide_image_url);
+      $slide->text = stripslashes($result->slide_text);
       $slide->no = $result->slide_no;
       $slide->slideshow_id = $result->slideshow_id;
 
